@@ -163,20 +163,21 @@ class CreateBucketWizard extends Wizard {
 
             try {
 
+		if(doesBucketExistV2(bucketName))
+		{
                 client.listObjects(new ListObjectsRequest()
                     .withBucketName(bucketName)
                     .withMaxKeys(0));
+		}
+		else
+		{
+			return ValidationStatus.error("Invalid bucket name");
+		}
 
             } catch (AmazonServiceException exception) {
 
                 if (VALID_ERROR_CODES.contains(exception.getErrorCode())) {
                     return ValidationStatus.ok();
-                }
-
-                // Not sure if listObjects will ever return this, but check
-                // for it just in case...
-                if ("InvalidBucketName".equals(exception.getErrorCode())) {
-                    return ValidationStatus.error("Invalid bucket name");
                 }
 
                 if (!IN_USE_ERROR_CODES.contains(exception.getErrorCode())) {
