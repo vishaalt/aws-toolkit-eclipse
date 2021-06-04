@@ -394,14 +394,18 @@ class CreateStackWizardFirstPage extends WizardPage {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 CreateTopicDialog dialog = new CreateTopicDialog();
-                if ( dialog.open() == 0 ) {
-                    try {
-                        AwsToolkitCore.getClientFactory().getSNSClient()
-                                .createTopic(new CreateTopicRequest().withName(dialog.getTopicName()));
-                    } catch ( Exception ex ) {
-                        CloudFormationPlugin.getDefault().logError("Failed to create new topic", ex);
+                try {
+                    if (dialog.open() == 0) {
+                        try {
+                            AwsToolkitCore.getClientFactory().getSNSClient()
+                                    .createTopic(new CreateTopicRequest().withName(dialog.getTopicName()));
+                        } catch (Exception ex) {
+                            CloudFormationPlugin.getDefault().logError("Failed to create new topic", ex);
+                        }
+                        loadTopics(snsTopicCombo);
                     }
-                    loadTopics(snsTopicCombo);
+                } finally {
+                    dialog.close();
                 }
             }
         });
