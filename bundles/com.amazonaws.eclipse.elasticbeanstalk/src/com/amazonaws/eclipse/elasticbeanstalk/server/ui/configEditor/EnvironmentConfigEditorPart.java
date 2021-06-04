@@ -232,16 +232,12 @@ public class EnvironmentConfigEditorPart extends AbstractEnvironmentConfigEditor
 
         final ExportTemplateDialog dialog = new ExportTemplateDialog(getSite().getShell(), existingTemplateNames,
                 "newTemplate" + System.currentTimeMillis());
-        try {
-            dialog.open();
+        dialog.open();
 
-            if (dialog.getReturnCode() == MessageDialog.OK) {
+        if ( dialog.getReturnCode() == MessageDialog.OK ) {
 
-                new ExportConfigurationJob(environment, dialog.getTemplateName(), dialog.getTemplateDescription(), model.createConfigurationOptions(),
-                        dialog.isCreatingNew()).schedule();
-            }
-        } finally {
-            dialog.close();
+            new ExportConfigurationJob(environment, dialog.getTemplateName(), dialog.getTemplateDescription(), model.createConfigurationOptions(),
+                    dialog.isCreatingNew()).schedule();
         }
     }
 
