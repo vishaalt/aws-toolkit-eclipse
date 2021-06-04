@@ -113,13 +113,17 @@ public class LegacyPreferenceStoreAccountMerger {
                         MergeLegacyAccountsConfirmationDialog dialog = new MergeLegacyAccountsConfirmationDialog(
                                 null, MESSAGE, new String[] { "Yes", "No" }, 0,
                                 legacyAccounts.values(), null, null);
-                        int result = dialog.open();
+                        try {
+                            int result = dialog.open();
 
-                        if (result == 0) {
-                            AwsToolkitCore.getDefault().logInfo("Deleting the credentials file before dumping the legacy accounts.");
-                            credentialsFile.delete();
-                            saveAccountsIntoCredentialsFile(credentialsFile, legacyAccounts.values(), null);
-                            clearAllLegacyAccountsInPreferenceStore();
+                            if (result == 0) {
+                                AwsToolkitCore.getDefault().logInfo("Deleting the credentials file before dumping the legacy accounts.");
+                                credentialsFile.delete();
+                                saveAccountsIntoCredentialsFile(credentialsFile, legacyAccounts.values(), null);
+                                clearAllLegacyAccountsInPreferenceStore();
+                            }
+                        } finally {
+                            dialog.close();
                         }
                     }
 
