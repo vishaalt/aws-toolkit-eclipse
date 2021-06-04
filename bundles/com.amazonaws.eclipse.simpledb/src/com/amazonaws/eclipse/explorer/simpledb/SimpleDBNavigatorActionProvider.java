@@ -93,7 +93,12 @@ public class SimpleDBNavigatorActionProvider extends CommonActionProvider {
 
         @Override
         public void run() {
-            new DomainMetadataDialog().open();
+            DomainMetadataDialog dialog = new DomainMetadataDialog();
+            try {
+                dialog.open();
+            } finally {
+                dialog.close();
+            }
         }
 
         class DomainMetadataDialog extends MessageDialog {
