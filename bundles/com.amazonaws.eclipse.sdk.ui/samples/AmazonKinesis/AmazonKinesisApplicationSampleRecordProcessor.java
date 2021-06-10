@@ -176,7 +176,8 @@ public class AmazonKinesisApplicationSampleRecordProcessor implements IRecordPro
                 Thread.sleep(BACKOFF_TIME_IN_MILLIS);
             } catch (InterruptedException e) {
                 LOG.debug("Interrupted sleep", e);
-                throw new InterruptedException();
+                Thread.currentThread().interrupt();
+                throw new RuntimeException(e);
             }
         }
     }
