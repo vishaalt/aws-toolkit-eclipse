@@ -381,6 +381,7 @@ public class DeploymentProgressTrackerDialog extends Dialog {
                 } catch (InterruptedException e) {
                     System.err.println("Interrupted when polling " +
                             "lifecycle events from deployment instances.");
+                    throw e;
                 }
             }
 
