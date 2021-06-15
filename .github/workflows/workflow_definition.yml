@@ -55,7 +55,7 @@ jobs:
       uses: ./.github/vijejain/cicd-actions-bugbash
       if: ${{ success() }}
       with:          
-        build_path: target # build artifact(s) directory
+        build_path: bundles # build artifact(s) directory
         s3_bucket: codeguru-reviewer-xxz-data
         
     - name: After - Log the amount of space being used
