@@ -23,6 +23,12 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+      
+    - name: Print working directory
+      run: |
+        cd ./
+        ls
+        find . -name \*.jar -print
 
     # Extra step requied for private beta
     - name: Checkout the action from a private repository
