@@ -22,11 +22,6 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.amazonaws.eclipse</groupId>
-      <artifactId>com.amazonaws.eclipse.javasdk</artifactId>
-      <version>${java-sdk-bundle-version}</version>
-    </dependency>
   </dependencies>
 
   <build>
